@@ -1,72 +1,67 @@
 # Personal Finance Manager
 
-def add_expense():
-    pass
+class Personal_finance_manager:
+    def __init__(self):
+        self.balance = 0
+        self.income_transactions = []
+        self.expense_transactions = []
+
+    def add_income(self, amount, source):
+        self.balance += amount
+        self.income_transactions.append({'amount': amount, 'source':source})
+
+    def add_expense(self, price, product):
+        self.balance -= price
+        self.expense_transactions.append({'price':price, 'product':product})
+
+    def balance(self):
+        return self.balance
+
+    def transactions(self):
+        print("Income Transactions:")
+        for income in self.income_transactions:
+            print(f"{income['source']}: +${income['amount']}")
+        print("\nExpense Transactions:")
+        for expense in self.expense_transactions:
+            print(f"{expense['product']}: -${expense['price']}")
 
 
-def add_income():
-    date = input('Enter date of income (DD-MM-YYYY) : ')
-    source = input('Enter source of Income : ')
-    amount = input('Enter amount of Income : ')
+def main():
 
-    income_entry = {
-        "date": date,
-        "source": source,
-        "amount": amount
-    }
+    pfm = Personal_finance_manager()
 
-    return income_entry
+    while True:
 
+        print("\n","------- MENU ------- ")
+        print("1. Add Income ")
+        print("2. Add Expense")
+        print("3. View Balance ")
+        print("4. Show Transactions ")
+        print("5. Exit")
 
-def check_balance(entry):
-    print("Your current balance is : ",entry["amount"])
+        ch = int(input("Enetr your choice : "))
 
+        if ch == 1:
+            amount = int(input("Enter amount of income : "))
+            source = input("Enter source of income : ")
+            pfm.add_income(amount, source)
 
-def categorize_expense():
-    pass
+        elif ch == 2:
+            price = int(input("Enter price of expense : "))
+            product = input("Enter the product name : ")
+            pfm.add_expense(price, product)
 
+        elif ch == 3:
+            print("Your current remaining balance is : ",pfm.balance,"\n")
 
-def view_by_category():
-    pass
+        elif ch == 4:
+            pfm.transactions()
 
+        elif ch == 5:
+            break
 
-def view_history():
-    pass
+        else:
+            print("invalid choice")
 
-
-def print_income(entries):
-    for i in entries:
-        print(i, " : ", entries[i])
-
-
-# ---------------------------------------------------------------------
-
-
-print("Welcome to your 'Personal Finance Manager'")
-
-con = None
-
-while con != 'n' or 'N':
-
-    print("What do you want to do -")
-    print("1. Add Income ")
-    print("2. Add Expenses ")
-    print("3. Check Balance ")
-
-    op = int(input("Enter your choice : "))
-
-    income_entry = {}
-    expense_entry = None
-
-    if op == 1:
-        income_entry = add_income()
-    elif op == 2:
-        add_expense(expense_entry)
-    elif op == 3:
-        check_balance(income_entry)
-
-    con = input(" Do you want to continue Y/N or y/n : ")
-
-
-
-
+if __name__ == "__main__":
+    main()
